@@ -1,0 +1,25 @@
+version: '3.3'
+services:
+  homeassistant:
+    image: homeassistant/home-assistant:stable
+    container_name: homeassistant
+    user: "${LOCAL_USER}:${LOCAL_USER}"
+    network_mode: host
+    volumes:
+      - ./homeassistant-config:/config
+      - /etc/localtime:/etc/localtime
+    ports:
+      - 8123:8123
+    restart: always
+  vscode:
+    image: codercom/code-server:latest
+    container_name: vscode
+    user: "${LOCAL_USER}:${LOCAL_USER}"
+    environment:
+      PASSWORD: "${VSCODE_PASSWORD}"
+    volumes:
+      - ./vscode-config:/home/coder/.config
+      - ./homeassistant-config:/home/coder/project
+    ports:
+      - 8080:8080
+    restart: always
