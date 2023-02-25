@@ -23,3 +23,13 @@ services:
     ports:
       - 8080:8080
     restart: always
+  mosquitto:  
+    image: eclipse-mosquitto:latest
+    container_name: mosquitto
+    user: "${LOCAL_USER}:${LOCAL_USER}"
+    network_mode: host
+    volumes:
+      - ./mosquitto-config:/mosquitto
+    ports:
+      - 1883:1883
+    restart: always
