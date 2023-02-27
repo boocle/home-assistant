@@ -27,9 +27,9 @@ services:
     image: eclipse-mosquitto:latest
     container_name: mosquitto
     user: "${LOCAL_USER}:${LOCAL_USER}"
-    network_mode: host
     volumes:
       - ./mosquitto-config:/mosquitto
     ports:
       - 1883:1883
+      - 9001:9001
     restart: always
