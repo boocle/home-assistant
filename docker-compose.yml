@@ -33,3 +33,15 @@ services:
       - 1883:1883
       - 9001:9001
     restart: always
+  zigbee2mqtt:
+    image: koenkk/zigbee2mqtt:latest
+    container_name: zigbee2mqtt
+    user: "${LOCAL_USER}:${LOCAL_USER}"
+    devices:
+      - /dev/ttyUSB0:/dev/ttyUSB0
+    volumes:
+      - ./zigbee2mqtt-config:/app/data
+      - /run/udev:/run/udev:ro
+    ports:
+      - 8081:8081
+    restart: always
