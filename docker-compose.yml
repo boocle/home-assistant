@@ -16,7 +16,7 @@ services:
     container_name: vscode
     user: "${LOCAL_USER}:${LOCAL_USER}"
     environment:
-      PASSWORD: "${VSCODE_PASSWORD}"
+      DISABLE_AUTH: "true"
     volumes:
       - ./vscode-config:/home/coder/.config
       - ./homeassistant-config:/home/coder/project
