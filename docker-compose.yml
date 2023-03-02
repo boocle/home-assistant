@@ -6,7 +6,7 @@ services:
     user: "${LOCAL_USER}:${LOCAL_USER}"
     network_mode: host
     volumes:
-      - ./homeassistant-config:/config
+      - ./config/homeassistant:/config
       - /etc/localtime:/etc/localtime
     ports:
       - 8123:8123
@@ -18,8 +18,8 @@ services:
     environment:
       DISABLE_AUTH: "true"
     volumes:
-      - ./vscode-config:/home/coder/.config
-      - ./homeassistant-config:/home/coder/project
+      - ./config/vscode:/home/coder/.config
+      - ./config/homeassistant:/home/coder/project
     ports:
       - 8080:8080
     restart: always
@@ -28,7 +28,7 @@ services:
     container_name: mosquitto
     user: "${LOCAL_USER}:${LOCAL_USER}"
     volumes:
-      - ./mosquitto-config:/mosquitto
+      - ./config/mosquitto:/mosquitto
     ports:
       - 1883:1883
       - 9001:9001
@@ -40,8 +40,17 @@ services:
     devices:
       - /dev/ttyUSB0:/dev/ttyUSB0
     volumes:
-      - ./zigbee2mqtt-config:/app/data
+      - ./config/zigbee2mqtt:/app/data
       - /run/udev:/run/udev:ro
     ports:
       - 8081:8081
+    restart: always
+  duplicati:
+    image: linuxserver/duplicati:latest
+    container_name: duplicati
+    volumes:
+      - ./config/duplicati:/config
+      - ./config:/backup
+    ports:
+      - 8200:8200
     restart: always
